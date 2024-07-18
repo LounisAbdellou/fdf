@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   get_line_count.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: labdello <labdello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/03 18:03:59 by labdello          #+#    #+#             */
-/*   Updated: 2024/07/22 17:26:18 by labdello         ###   ########.fr       */
+/*   Created: 2024/07/20 16:54:41 by labdello          #+#    #+#             */
+/*   Updated: 2024/07/21 15:33:38 by labdello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#include "fdf.h"
+#include "libft.h"
 
-# include <fcntl.h>
-# include "mlx.h"
-# include "libft.h"
+#define BUFFER_SIZE 5
 
-# define WIDTH 1200
-# define HEIGHT 700
+size_t	get_line_count(char *filename)
+{
+	ssize_t	i;
+	ssize_t	count;
+	int		fd;
+	char	buffer[BUFFER_SIZE];
 
-typedef struct s_map {
-	int	width;
-	int	height;
-	int	**points;
-}	t_map;
-
-typedef struct s_env {
-	void	*mlx;
-	void	*win;
-	void	*img;
-	t_map	*map;
-}	t_env;
-
-char	*get_next_line(int fd);
-size_t	get_line_count(char *filename);
-
-#endif
+	count = 0;
+	fd = open(filename, O_RDONLY);
+	while (read(fd, buffer, BUFFER_SIZE))
+	{
+		i = 0;
+		while (buffer[i] != '\0')
+		{
+			if (buffer[i] == '\n')
+				count++;
+			i++;
+		}
+	}
+	close(fd);
+	return (count);
+}
