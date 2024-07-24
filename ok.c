@@ -6,7 +6,7 @@
 /*   By: labdello <labdello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 22:27:35 by labdello          #+#    #+#             */
-/*   Updated: 2024/07/24 15:32:55 by labdello         ###   ########.fr       */
+/*   Updated: 2024/07/24 15:49:42 by labdello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ok()
 	dx = b->x - a->x;
 	dy = b->y - a->y;
 	if (abs(dx) > abs(dy))
-		slope_less_then_one(dx, dy);
+		slope_less_than_one(dx, dy);
 	else
 		slope_bigger_than_one(dx, dy);
 }
@@ -57,7 +57,7 @@ void	slope_bigger_than_one(int dx, int dy, t_point *a, t_point *b)
 	}
 }
 
-void	slope_less_then_one(int dx, int dy, t_point *a, t_point *b)
+void	slope_less_than_one(int dx, int dy, t_point *a, t_point *b)
 {
 	int	p;
 	int	i;

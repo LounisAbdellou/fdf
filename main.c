@@ -6,7 +6,7 @@
 /*   By: labdello <labdello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:01:50 by labdello          #+#    #+#             */
-/*   Updated: 2024/07/22 18:21:22 by labdello         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:39:11 by labdello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	free_map(t_map *map)
 	i = 0;
 	while (i < map->height)
 	{
-		free(map->points[i]);
+		free(map->points_z[i]);
 		i++;
 	}
-	free(map->points);
+	free(map->points_z);
 	free(map);
 }
 
@@ -71,7 +71,7 @@ size_t	ft_tablen(char **tab)
 	return (i);
 }
 
-int	*convert_points(char *line, t_env *env)
+int	*convert_points_z(char *line, t_env *env)
 {
 	size_t	i;
 	char	**str_tab;
@@ -103,10 +103,10 @@ int	handle_file_parse(int fd, size_t line_count, t_env *env)
 	if (!line)
 		return (0);
 	env->map->height = line_count;
-	env->map->points = malloc(sizeof(int *) * env->map->height);
+	env->map->points_z = malloc(sizeof(int *) * env->map->height);
 	while (line != NULL)
 	{
-		env->map->points[i] = convert_points(line, env);
+		env->map->points_z[i] = convert_points_z(line, env);
 		free(line);
 		line = get_next_line(fd);
 		i++;
@@ -124,7 +124,7 @@ t_map	*init_map()
 		return (NULL);
 	map->width = -1;
 	map->height = -1;
-	map->points = NULL;
+	map->points_z = NULL;
 	return (map);
 }
 
@@ -165,13 +165,10 @@ int	main(int ac, char **av)
 	for (int i = 0; i < env->map->height; i++)
 	{
 		for (int j = 0; j < env->map->width; j++)
-			printf("%d ", env->map->points[i][j]);
+			printf("%d ", env->map->points_z[i][j]);
 		printf("\n");
 	}
-	mlx_pixel_put(env->mlx, env->win, 100, 100,	16777215);
-	mlx_pixel_put(env->mlx, env->win, 100, 101,	16777215);
-	mlx_pixel_put(env->mlx, env->win, 100, 102,	16777215);
-	mlx_pixel_put(env->mlx, env->win, 100, 103,	16777215);
+	draw_map(env);
 	mlx_loop(env->mlx);
 	return (0);
 }

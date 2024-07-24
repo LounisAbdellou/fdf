@@ -6,7 +6,7 @@
 /*   By: labdello <labdello@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/03 18:03:59 by labdello          #+#    #+#             */
-/*   Updated: 2024/07/22 17:26:18 by labdello         ###   ########.fr       */
+/*   Updated: 2024/07/24 17:39:46 by labdello         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,20 @@
 # define WIDTH 1200
 # define HEIGHT 700
 
+typedef struct s_delta {
+	int	x;
+	int	y;
+}	t_delta;
+
+typedef struct s_point {
+	int	x;
+	int	y;
+}	t_point;
+
 typedef struct s_map {
 	int	width;
 	int	height;
-	int	**points;
+	int	**points_z;
 }	t_map;
 
 typedef struct s_env {
@@ -35,5 +45,6 @@ typedef struct s_env {
 
 char	*get_next_line(int fd);
 size_t	get_line_count(char *filename);
+void	draw_map(t_env *env);
 
 #endif
